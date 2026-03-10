@@ -48,11 +48,13 @@ pipeline {
                 anyOf {
                     branch 'main'
                     branch 'develop'
+		    branch 'release/*'
                 }
             }
             steps {
                 script {
                     if (env.BRANCH_NAME == 'main') {
+			input message: 'Deploy to Production?', ok: 'Approve'
                         echo 'Deploying to Production...'
                     } else if (env.BRANCH_NAME == 'develop') {
                         echo 'Deploying to Dev...'
